@@ -8,7 +8,7 @@ namespace Mentoring1
     {
         public static void Run()
         {
-            var taskArray = Enumerable.Range(0, 1000)
+            var taskArray = Enumerable.Range(1, 100)
                 .Select(i => Task.Factory.StartNew(() => IterateAndPrint(i, 1000, Console.WriteLine))).ToArray();
             Task.WaitAll(taskArray);
         }

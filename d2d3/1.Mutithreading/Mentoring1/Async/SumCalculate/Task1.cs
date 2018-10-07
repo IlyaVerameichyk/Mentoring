@@ -14,7 +14,12 @@ namespace Async.SumCalculate
             while (true)
             {
                 Console.WriteLine("Calculate sum of count:");
-                var count = long.Parse(Console.ReadLine());
+                long count;
+                if(!long.TryParse(Console.ReadLine(), out count))
+                {
+                    Console.WriteLine("Please, input value corresponding to long.");
+                    continue;
+                }
                 cts.Cancel();
                 cts = new CancellationTokenSource();
                 calculator.CalculateSumAsync(0, count, cts.Token).ConfigureAwait(true);

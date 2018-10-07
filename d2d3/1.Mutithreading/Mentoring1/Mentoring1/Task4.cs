@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 
 namespace Mentoring1
@@ -18,12 +16,13 @@ namespace Mentoring1
         {
             if (!(countObj is int)) { throw new ArgumentException(nameof(countObj)); }
             var number = (int)countObj;
-            if (number <= 0)
+
+            Console.WriteLine($"Thread #{number}");
+            if (number <= 1)
             {
                 return;
             }
 
-            Console.WriteLine($"Thread #{number}");
             Console.WriteLine($"#{number} Creating inner thread");
             var innerThread = new Thread(CreateThreads);
             innerThread.Start(number - 1);

@@ -20,11 +20,9 @@ namespace Async.SumCalculate
                             result += i;
                             token?.ThrowIfCancellationRequested();
                         }
-                        Console.WriteLine(Thread.CurrentThread.ManagedThreadId);
                         return result;
                     }
                 });
-                Console.WriteLine(Thread.CurrentThread.ManagedThreadId);
                 Console.WriteLine($"Result {task}");
             }
             catch (Exception ex)

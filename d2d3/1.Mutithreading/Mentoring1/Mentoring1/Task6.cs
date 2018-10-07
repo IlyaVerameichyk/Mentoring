@@ -9,21 +9,20 @@ namespace Mentoring1
     public static class Task6
     {
         private static readonly IList<int> _list = new List<int>();
-        private static readonly AutoResetEvent AutoResetEventForAdd = new AutoResetEvent(true);
-        private static readonly AutoResetEvent AutoResetEventForPrint = new AutoResetEvent(false);
-        
+        private static readonly AutoResetEvent AutoResetEvent = new AutoResetEvent(true);
+
         public static void Run()
         {
             var addTask = new Task(() =>
             {
                 foreach (var i in Enumerable.Range(0, 10))
                 {
-                    AutoResetEventForAdd.WaitOne();
-                    AutoResetEventForAdd.Reset();
+                    AutoResetEvent.WaitOne();
+                    AutoResetEvent.Reset();
                     Console.WriteLine($"Add value {i}");
                     AddToCollection(i);
                     Console.WriteLine($"Finish add value {i}");
-                    AutoResetEventForPrint.Set();
+                    AutoResetEvent.Set();
                 }
             });
 
@@ -31,19 +30,18 @@ namespace Mentoring1
             {
                 foreach (var i in Enumerable.Range(0, 10))
                 {
-                    AutoResetEventForPrint.WaitOne();
-                    AutoResetEventForPrint.Reset();
+                    AutoResetEvent.WaitOne();
+                    AutoResetEvent.Reset();
                     Console.WriteLine("Print collection");
                     IterateCollection(Console.WriteLine);
                     Console.WriteLine("Finish print collection");
-                    AutoResetEventForAdd.Set();
+                    AutoResetEvent.Set();
                 }
             });
 
             addTask.Start();
             printTask.Start();
-            addTask.Wait();
-            printTask.Wait();
+            Task.WaitAll(addTask, printTask);
         }
 
         private static void AddToCollection(int value)

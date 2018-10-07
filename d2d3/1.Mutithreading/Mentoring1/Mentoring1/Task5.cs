@@ -13,6 +13,7 @@ namespace Mentoring1
             ThreadPool.SetMinThreads(10, 0);
             ThreadPool.QueueUserWorkItem(CreateThread, 10);
 
+            semaphore.WaitOne();
         }
 
         public static void CreateThread(object countObj)
