@@ -15,7 +15,7 @@ namespace Mentoring1
 
         private static void IterateAndPrint(int taskNumber, int count, Action<string> output)
         {
-            for (var i = 0; i < count; i++)
+            foreach (var i in Enumerable.Range(1, count))
             {
                 output($"Task #{taskNumber} - {i}");
             }

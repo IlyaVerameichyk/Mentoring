@@ -9,7 +9,7 @@ namespace Mentoring1
     public static class Task6
     {
         private static readonly IList<int> _list = new List<int>();
-        private static readonly AutoResetEvent AutoResetEvent = new AutoResetEvent(true);
+        private static readonly AutoResetEvent AutoResetEvent = new AutoResetEvent(false);
 
         public static void Run()
         {
@@ -17,25 +17,26 @@ namespace Mentoring1
             {
                 foreach (var i in Enumerable.Range(0, 10))
                 {
-                    AutoResetEvent.WaitOne();
                     AutoResetEvent.Reset();
                     Console.WriteLine($"Add value {i}");
                     AddToCollection(i);
                     Console.WriteLine($"Finish add value {i}");
                     AutoResetEvent.Set();
+                    AutoResetEvent.WaitOne();
                 }
             });
 
             var printTask = new Task(() =>
             {
+                AutoResetEvent.WaitOne();
                 foreach (var i in Enumerable.Range(0, 10))
                 {
-                    AutoResetEvent.WaitOne();
                     AutoResetEvent.Reset();
                     Console.WriteLine("Print collection");
                     IterateCollection(Console.WriteLine);
                     Console.WriteLine("Finish print collection");
                     AutoResetEvent.Set();
+                    AutoResetEvent.WaitOne();
                 }
             });
 
