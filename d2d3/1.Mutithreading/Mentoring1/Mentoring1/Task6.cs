@@ -17,7 +17,6 @@ namespace Mentoring1
             {
                 foreach (var i in Enumerable.Range(0, 10))
                 {
-                    AutoResetEvent.Reset();
                     Console.WriteLine($"Add value {i}");
                     AddToCollection(i);
                     Console.WriteLine($"Finish add value {i}");
@@ -31,7 +30,6 @@ namespace Mentoring1
                 AutoResetEvent.WaitOne();
                 foreach (var i in Enumerable.Range(0, 10))
                 {
-                    AutoResetEvent.Reset();
                     Console.WriteLine("Print collection");
                     IterateCollection(Console.WriteLine);
                     Console.WriteLine("Finish print collection");
