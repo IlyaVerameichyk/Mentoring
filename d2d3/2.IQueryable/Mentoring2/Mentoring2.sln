@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpressionTree.2", "Express
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpressionTree.2.Tests", "ExpressionTree.2.Tests\ExpressionTree.2.Tests.csproj", "{2013F813-5335-4AD1-A667-F67B623F7DDB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IQueryable", "IQueryable\IQueryable.csproj", "{6839089B-607F-46EF-A78F-9CCB7B430380}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IQueryable.Tests", "IQueryable.Tests\IQueryable.Tests.csproj", "{70B62827-9920-4114-AF60-106206D038EA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{2013F813-5335-4AD1-A667-F67B623F7DDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2013F813-5335-4AD1-A667-F67B623F7DDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2013F813-5335-4AD1-A667-F67B623F7DDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6839089B-607F-46EF-A78F-9CCB7B430380}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6839089B-607F-46EF-A78F-9CCB7B430380}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6839089B-607F-46EF-A78F-9CCB7B430380}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6839089B-607F-46EF-A78F-9CCB7B430380}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70B62827-9920-4114-AF60-106206D038EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70B62827-9920-4114-AF60-106206D038EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70B62827-9920-4114-AF60-106206D038EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70B62827-9920-4114-AF60-106206D038EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
