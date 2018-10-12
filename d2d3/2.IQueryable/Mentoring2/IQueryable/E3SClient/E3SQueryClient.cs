@@ -31,7 +31,7 @@ namespace Sample03.E3SClient
 	        _httpClient = httpClient;
 	    }
 
-		public IEnumerable<T> SearchFTS<T>(string query, int start = 0, int limit = 0) where T : E3SEntity
+		public IEnumerable<T> SearchFTS<T>(string[] query, int start = 0, int limit = 0) where T : E3SEntity
 		{
 		    IHttpClient client = CreateClient();
 			var requestGenerator = new FTSRequestGenerator(BaseAddress);
@@ -44,7 +44,7 @@ namespace Sample03.E3SClient
 		}
 
 
-		public IEnumerable SearchFTS(Type type, string query, int start = 0, int limit = 0)
+		public IEnumerable SearchFTS(Type type, string[] query, int start = 0, int limit = 0)
 		{
 		    IHttpClient client = CreateClient();
 			var requestGenerator = new FTSRequestGenerator(BaseAddress);

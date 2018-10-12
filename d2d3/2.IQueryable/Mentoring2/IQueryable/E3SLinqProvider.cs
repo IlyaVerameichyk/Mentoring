@@ -35,9 +35,10 @@ namespace IQueryable
 			var itemType = TypeHelper.GetElementType(expression.Type);
 
 			var translator = new ExpressionToFTSRequestTranslator();
+            
 			var queryString = translator.Translate(expression);
 
-			return (TResult)(e3sClient.SearchFTS(itemType, queryString));
+			return (TResult)(e3sClient.SearchFTS(itemType,  queryString));
 		}
 	}
 }
