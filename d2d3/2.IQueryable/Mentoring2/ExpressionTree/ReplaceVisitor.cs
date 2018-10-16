@@ -10,11 +10,11 @@ namespace ExpressionTree
             {
                 if (IsConstantIntAndValue(node.Left, 1))
                 {
-                    return Expression.Increment(node.Right);
+                    return Expression.Increment(Visit(node.Right));
                 }
                 if (IsConstantIntAndValue(node.Right, 1))
                 {
-                    return Expression.Increment(node.Left);
+                    return Expression.Increment(Visit(node.Left));
                 }
             }
 
@@ -22,7 +22,7 @@ namespace ExpressionTree
             {
                 if (IsConstantIntAndValue(node.Right, 1))
                 {
-                    return Expression.Decrement(node.Left);
+                    return Expression.Decrement(Visit(node.Left));
                 }
             }
 
