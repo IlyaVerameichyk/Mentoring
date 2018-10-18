@@ -9,7 +9,9 @@ namespace Task1
         {
             var a = new BatteryInterop();
             var s = a.GetLastSleepTime();
-            var w = a.GetWakeSleepTime();
+            var w = a.GetLastWakeTime();
+            a.GetSystemBatteryState();
+            a.GetSystemPowerInformation();
         }
     }
 }
