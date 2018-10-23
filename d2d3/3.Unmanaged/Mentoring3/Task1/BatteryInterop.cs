@@ -5,9 +5,9 @@ using Task1.Models;
 
 namespace Task1
 {
-    public class BatteryInterop
+    internal static class BatteryInterop
     {
-        public TimeSpan GetLastSleepTime()
+        public static TimeSpan GetLastSleepTime()
         {
             ulong time;
             var result = CallNtPowerInformationInternal(InformationLevel.LastSleepTime, out time);
@@ -19,7 +19,7 @@ namespace Task1
             return resultTime;
         }
 
-        public TimeSpan GetLastWakeTime()
+        public static TimeSpan GetLastWakeTime()
         {
             ulong time;
             var result = CallNtPowerInformationInternal(InformationLevel.LastWakeTime, out time);
@@ -31,7 +31,7 @@ namespace Task1
             return resultTime;
         }
 
-        public SystemBatteryState GetSystemBatteryState()
+        public static SystemBatteryState GetSystemBatteryState()
         {
             SystemBatteryState state;
             var result = CallNtPowerInformationInternal(InformationLevel.SystemBatteryState, out state);
@@ -42,7 +42,7 @@ namespace Task1
             return state;
         }
 
-        public SystemPowerInformation GetSystemPowerInformation()
+        public static SystemPowerInformation GetSystemPowerInformation()
         {
             SystemPowerInformation information;
             var result = CallNtPowerInformationInternal(InformationLevel.SystemPowerInformation, out information);
@@ -53,7 +53,7 @@ namespace Task1
             return information;
         }
 
-        public void WriteHiberFile(bool write)
+        public static void WriteHiberFile(bool write)
         {
             var inValue = write ? (byte)1 : (byte)0;
             var outputPtr = IntPtr.Zero;
@@ -88,7 +88,7 @@ namespace Task1
             int nOutputBufferSize
         );
 
-        private NtStatus CallNtPowerInformationInternal<TOut>(InformationLevel informationLevel, out TOut outputValue) where TOut : struct
+        private static NtStatus CallNtPowerInformationInternal<TOut>(InformationLevel informationLevel, out TOut outputValue) where TOut : struct
         {
             var outputPtr = IntPtr.Zero;
             try
@@ -115,12 +115,12 @@ namespace Task1
         [DllImport("Powrprof.dll", SetLastError = true)]
         static extern bool SetSuspendState(byte hibernate, byte forceCritical, byte disableWakeEvent);
 
-        public void SetSleep()
+        public static void SetSleep()
         {
             SetSuspendState(0, 0, 0);
         }
 
-        public void SetHibernation()
+        public static void SetHibernation()
         {
             SetSuspendState(1, 0, 0);
         }

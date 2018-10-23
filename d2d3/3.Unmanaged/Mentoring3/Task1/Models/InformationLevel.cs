@@ -1,6 +1,6 @@
 ﻿namespace Task1.Models
 {
-    public enum InformationLevel : int
+    internal enum InformationLevel : int
     {
         LastSleepTime = 15,
         LastWakeTime = 14,
