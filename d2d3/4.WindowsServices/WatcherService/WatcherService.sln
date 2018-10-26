@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemWatcher", "SystemWatcher\SystemWatcher.csproj", "{4D7286B0-4457-4761-A00C-0D2DA9AC0015}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.csproj", "{D2BD872E-328B-41AC-9E9F-22E19699BBFF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4D7286B0-4457-4761-A00C-0D2DA9AC0015}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D7286B0-4457-4761-A00C-0D2DA9AC0015}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D7286B0-4457-4761-A00C-0D2DA9AC0015}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D7286B0-4457-4761-A00C-0D2DA9AC0015}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2BD872E-328B-41AC-9E9F-22E19699BBFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2BD872E-328B-41AC-9E9F-22E19699BBFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2BD872E-328B-41AC-9E9F-22E19699BBFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2BD872E-328B-41AC-9E9F-22E19699BBFF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
