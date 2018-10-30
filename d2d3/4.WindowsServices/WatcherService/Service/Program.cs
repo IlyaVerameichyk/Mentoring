@@ -1,8 +1,4 @@
-﻿using System;
-using SystemWatcher;
-using SystemWatcher.Analyzer;
-using SystemWatcher.Exporters;
-using SystemWatcher.LocalSystemWatcher;
+﻿using Topshelf;
 
 namespace Service
 {
@@ -10,10 +6,7 @@ namespace Service
     {
         public static void Main(string[] args)
         {
-            var a = new FileManager(new LocalSystemWatcher(new[] {"D:\\test"}), new BarcodeAnalyzer(),
-                new LocalSystemFileExporter("D:\\test\\dest"));
-
-            Console.ReadKey();
+            HostFactory.Run(x => x.Service<Service>());
         }
     }
 }

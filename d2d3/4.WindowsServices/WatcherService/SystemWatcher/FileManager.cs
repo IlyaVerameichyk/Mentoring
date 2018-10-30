@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using SystemWatcher.Interfaces;
@@ -8,6 +9,7 @@ namespace SystemWatcher
 {
     public class FileManager
     {
+        private static readonly string[] _imageExtensions = { "png", "jpg", "jpeg" };
         private readonly IDictionary<string, IList<IFile>> _filesCollections;
         private readonly IFileSystemWatcher _fileSystemWatcher;
         private readonly IFilesAnalyzer _filesAnalyzer;
@@ -33,7 +35,10 @@ namespace SystemWatcher
         private void OnFileCreated(object sender, FileEventArgs e)
         {
             var nameParser = new NameParser(Path.GetFileName(e.File.FullName));
-
+            if (!_imageExtensions.Contains(nameParser.Extension, StringComparer.InvariantCultureIgnoreCase))
+            {
+                return;
+            }
             if (!_filesCollections.ContainsKey(nameParser.Prefix))
             {
                 _filesCollections.Add(nameParser.Prefix, new List<IFile>());
