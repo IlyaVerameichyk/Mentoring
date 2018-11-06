@@ -1,5 +1,5 @@
 ﻿using System;
-using SystemWatcher.Interfaces;
+using SystemWatcher.Models.Interfaces;
 
 namespace SystemWatcher.Models
 {

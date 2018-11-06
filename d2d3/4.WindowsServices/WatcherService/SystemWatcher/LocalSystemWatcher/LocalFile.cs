@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Threading;
-using SystemWatcher.Interfaces;
+using SystemWatcher.Models.Interfaces;
 
 namespace SystemWatcher.LocalSystemWatcher
 {

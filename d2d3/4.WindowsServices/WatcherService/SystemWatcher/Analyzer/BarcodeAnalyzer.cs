@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 using System.IO;
-using SystemWatcher.Interfaces;
+using SystemWatcher.Models.Interfaces;
 using ZXing;
 
 namespace SystemWatcher.Analyzer

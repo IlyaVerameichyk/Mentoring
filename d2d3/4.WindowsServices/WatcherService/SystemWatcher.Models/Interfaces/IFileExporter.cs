@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace SystemWatcher.Interfaces
+namespace SystemWatcher.Models.Interfaces
 {
     public interface IFileExporter
     {

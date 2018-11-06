@@ -1,15 +1,15 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using SystemWatcher.Interfaces;
 using SystemWatcher.Models;
+using SystemWatcher.Models.Interfaces;
 using MigraDoc.DocumentObjectModel;
 using MigraDoc.Rendering;
 using PdfSharp.Pdf;
 
 namespace SystemWatcher.Exporters
 {
-    public class LocalSystemFileExporter : IFileExporter
+    public class LocalSystemFileExporter : PdfExportedBase, IFileExporter
     {
         private readonly string _destinationPath;
 
@@ -25,19 +25,14 @@ namespace SystemWatcher.Exporters
 
         public void Export(IOrderedEnumerable<IFile> files)
         {
-            var document = new Document();
-            var section = document.AddSection();
-            foreach (var file in files)
+            var path = Path.Combine(_destinationPath,
+                new NameParser(Path.GetFileName(files.First().FullName)).Prefix + ".pdf");
+            using (var fs = new FileStream(path, FileMode.Create))
             {
-                section.AddImage(file.FullName);
-            }
-
-            var pdfRenderer = new PdfDocumentRenderer(true, PdfFontEmbedding.Always) { Document = document };
-            pdfRenderer.RenderDocument();
-            pdfRenderer.PdfDocument.Save(Path.Combine(_destinationPath, new NameParser(Path.GetFileName(files.First().FullName)).Prefix+ ".pdf"));
-            foreach (var file in files)
-            {
-                file.Remove();
+                using (var ms = GeneratePdf(files))
+                {
+                    ms.CopyTo(fs);
+                }
             }
         }
     }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace SystemWatcher.Interfaces
+namespace SystemWatcher.Models.Interfaces
 {
     public interface IFile
     {

@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueueManager", "QueueManager\QueueManager.csproj", "{AB23E52E-DE92-4C6A-B54F-219AA2DAFA63}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemWatcher.Models", "..\..\4.WindowsServices\WatcherService\SystemWatcher.Models\SystemWatcher.Models.csproj", "{C83538E3-8019-44AD-B72A-E3AC5609D08D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Runner", "Runner\Runner.csproj", "{294CED24-247F-424D-8FE7-3DB0B2C945FC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AB23E52E-DE92-4C6A-B54F-219AA2DAFA63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB23E52E-DE92-4C6A-B54F-219AA2DAFA63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB23E52E-DE92-4C6A-B54F-219AA2DAFA63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB23E52E-DE92-4C6A-B54F-219AA2DAFA63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C83538E3-8019-44AD-B72A-E3AC5609D08D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C83538E3-8019-44AD-B72A-E3AC5609D08D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C83538E3-8019-44AD-B72A-E3AC5609D08D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C83538E3-8019-44AD-B72A-E3AC5609D08D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{294CED24-247F-424D-8FE7-3DB0B2C945FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{294CED24-247F-424D-8FE7-3DB0B2C945FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{294CED24-247F-424D-8FE7-3DB0B2C945FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{294CED24-247F-424D-8FE7-3DB0B2C945FC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

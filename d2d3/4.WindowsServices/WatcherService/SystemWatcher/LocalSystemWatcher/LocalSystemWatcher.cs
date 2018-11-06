@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using SystemWatcher.Interfaces;
 using SystemWatcher.Models;
+using SystemWatcher.Models.Interfaces;
 
 namespace SystemWatcher.LocalSystemWatcher
 {

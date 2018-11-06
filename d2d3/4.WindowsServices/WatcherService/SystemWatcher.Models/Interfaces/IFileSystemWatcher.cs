@@ -1,7 +1,6 @@
 ﻿using System;
-using SystemWatcher.Models;
 
-namespace SystemWatcher.Interfaces
+namespace SystemWatcher.Models.Interfaces
 {
     public interface IFileSystemWatcher
     {
