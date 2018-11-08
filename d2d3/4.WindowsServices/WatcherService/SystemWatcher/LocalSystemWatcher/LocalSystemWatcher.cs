@@ -10,20 +10,27 @@ namespace SystemWatcher.LocalSystemWatcher
 {
     public class LocalSystemWatcher : IFileSystemWatcher
     {
-        private readonly IList<FileSystemWatcher> _fileSystemWatchers;
+        private string[] _paths;
+        private IList<FileSystemWatcher> _fileSystemWatchers;
 
         public LocalSystemWatcher(string[] paths)
         {
+            SetPaths(paths);
+        }
+
+        public void SetPaths(string[] paths)
+        {
+            _paths = paths;
             if (paths.Any(p => new Uri(p).IsUnc || !Directory.Exists(p)))
             {
                 throw new ArgumentException("Paths must be a local existing directories");
             }
-            _fileSystemWatchers = paths.Select(p => new FileSystemWatcher(p)).ToList();
-
         }
 
         public void StartWatching()
         {
+            _fileSystemWatchers = _paths.Select(p => new FileSystemWatcher(p)).ToList();
+
             foreach (var fileSystemWatcher in _fileSystemWatchers)
             {
                 fileSystemWatcher.EnableRaisingEvents = true;

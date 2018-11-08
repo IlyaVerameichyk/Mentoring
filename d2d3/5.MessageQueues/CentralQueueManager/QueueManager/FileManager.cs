@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using QueueManager.Models;
@@ -37,7 +38,7 @@ namespace QueueManager
         private void GenerateFile(string fileName)
         {
             var messages = _receivedMessages[fileName].OrderBy(p => p.Position);
-            using (var resultFileMemoryStream = new FileStream("C:\\Users\\Ilya_Verameichyk\\Desktop\\" + fileName + ".pdf", FileMode.Create))
+            using (var resultFileMemoryStream = new FileStream(Path.Combine(ConfigurationManager.AppSettings["ExportFileDirectory"], $"{fileName}.pdf"), FileMode.Create))
             {
                 foreach (var messageParser in messages)
                 {

@@ -14,6 +14,7 @@ namespace QueueManager.Models
                 !message.Properties.ContainsKey("Position") || !(message.Properties["Position"] is int) ||
                 string.IsNullOrWhiteSpace(message.Label))
             {
+                message.DeadLetter();
                 throw new ArgumentException("Invalid message format");
             }
             Size = (int)message.Properties["Size"];
@@ -23,6 +24,7 @@ namespace QueueManager.Models
             var ms = new MemoryStream(bytes);
             ms.Seek(0, SeekOrigin.Begin);
             _stream = ms;
+            message.Complete();
         }
 
         public int Size { get; }

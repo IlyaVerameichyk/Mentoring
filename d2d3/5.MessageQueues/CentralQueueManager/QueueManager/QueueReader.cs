@@ -6,7 +6,7 @@ namespace QueueManager
 {
     public class QueueReader
     {
-        private const string ServiceBusConnectionString = "Endpoint=sb://mentoringmq.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=uwBuFNU0hZPYSigS5NFeQx2xqoWDRiQIBn6oRZdXoxA=";
+        private const string ServiceBusConnectionString = "Endpoint=sb://mqmentoring.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=UlNEqYdOZZUz3SKwcoK7knvXl/3scewYuKWSSBNEvg8=";
         private const string QueueName = "filequeue";
         private QueueClient _client;
 

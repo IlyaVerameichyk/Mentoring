@@ -2,6 +2,7 @@
 using SystemWatcher.Analyzer;
 using SystemWatcher.Exporters;
 using SystemWatcher.LocalSystemWatcher;
+using Service.QueueManager;
 using Topshelf;
 
 namespace Service
@@ -12,7 +13,10 @@ namespace Service
 
         public bool Start(HostControl hostControl)
         {
-            _fileManager = new FileManager(new LocalSystemWatcher(new[] { "D:\\test" }), new BarcodeAnalyzer(),
+            var analyzer = new BarcodeAnalyzer();
+            var settingsManager = new SettingsManager(analyzer);
+
+            _fileManager = new FileManager(new LocalSystemWatcher(new[] { "D:\\test" }), analyzer,
                 new ServiceBusExporter());
 
             return true;

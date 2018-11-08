@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using QueueManager;
 
 namespace Runner
@@ -12,7 +8,22 @@ namespace Runner
         public static void Main(string[] args)
         {
             var manager = new FileManager(new QueueReader());
-            Console.ReadLine();
+            var fileReadersSettingsManager = new FileReadersSettingsManager();
+
+            Console.WriteLine("Type 'ping' to ping services now, otherwise - stop word");
+            while (true)
+            {
+                var input = Console.ReadLine();
+                if ("ping".Equals(input, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    fileReadersSettingsManager.PingNow();
+                }
+                else if(!string.IsNullOrWhiteSpace(input))
+                {
+                    fileReadersSettingsManager.SetQrTerminateWord(input);
+                }
+            }
+
         }
     }
 }
