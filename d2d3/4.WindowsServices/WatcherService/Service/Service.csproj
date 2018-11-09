@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueueManager\PingManager.cs" />
     <Compile Include="QueueManager\SettingsManager.cs" />
     <Compile Include="Service.cs" />
   </ItemGroup>

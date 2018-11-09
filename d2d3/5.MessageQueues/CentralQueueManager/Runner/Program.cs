@@ -1,5 +1,6 @@
 ﻿using System;
 using QueueManager;
+using QueueManager.FileReceiving;
 
 namespace Runner
 {
@@ -8,6 +9,7 @@ namespace Runner
         public static void Main(string[] args)
         {
             var manager = new FileManager(new QueueReader());
+            var pingReceiver = new PingReceiver();
             var fileReadersSettingsManager = new FileReadersSettingsManager();
 
             Console.WriteLine("Type 'ping' to ping services now, otherwise - stop word");

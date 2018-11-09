@@ -18,7 +18,7 @@ namespace Service
 
             _fileManager = new FileManager(new LocalSystemWatcher(new[] { "D:\\test" }), analyzer,
                 new ServiceBusExporter());
-
+            var pm = new PingManager(_fileManager);
             return true;
         }
 

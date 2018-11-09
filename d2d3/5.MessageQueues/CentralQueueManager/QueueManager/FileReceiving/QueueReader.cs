@@ -2,7 +2,7 @@
 using Microsoft.ServiceBus.Messaging;
 using QueueManager.Models;
 
-namespace QueueManager
+namespace QueueManager.FileReceiving
 {
     public class QueueReader
     {

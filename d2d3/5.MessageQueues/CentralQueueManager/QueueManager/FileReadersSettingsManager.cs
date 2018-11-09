@@ -24,7 +24,7 @@ namespace QueueManager
         public void PingNow()
         {
             var message = new BrokeredMessage();
-            message.Properties.Add("ActionName", "Ping");
+            message.Properties.Add("ActionName", "PingNow");
             message.To = "FileSender";
             _client.Send(message);
         }
