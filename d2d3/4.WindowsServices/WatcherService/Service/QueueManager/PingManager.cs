@@ -8,41 +8,42 @@ namespace Service.QueueManager
 {
     public class PingManager
     {
-        private FileManager _fileManager;
-
-        private const string ServiceBusConnectionString = "Endpoint=sb://mqmentoring.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=UlNEqYdOZZUz3SKwcoK7knvXl/3scewYuKWSSBNEvg8=";
-        private const string TopicName = "settingstopic";
-
-        private const string SubscriptionName = "PingSubscriptionNow";
+        private readonly FileManager _fileManager;
         private readonly TopicClient _client;
+
+        private const string TopicName = "settingstopic";
+        private const string SubscriptionName = "PingSubscriptionNow";
 
         public Guid Guid { get; } = Guid.NewGuid();
         
         public PingManager(FileManager fileManager)
         {
             _fileManager = fileManager;
+            _client = TopicClient.Create(TopicName);
+
+            SetupPingOverTime();
+            SetupPingNowListener();
+        }
+
+        private void SetupPingOverTime()
+        {
             var timer = new Timer(TimeSpan.FromMinutes(1).TotalMilliseconds)
             {
                 AutoReset = true
             };
             timer.Elapsed += (sender, args) => SendStatus();
             timer.Start();
-
-            _client = TopicClient.CreateFromConnectionString(ServiceBusConnectionString, TopicName);
-
-            SetupPingNowListener();
         }
 
         private void SetupPingNowListener()
         {
-            var nsm = NamespaceManager.CreateFromConnectionString(ServiceBusConnectionString);
-            if (nsm.SubscriptionExists(TopicName, SubscriptionName))
+            var nsm = NamespaceManager.Create();
+            if (!nsm.SubscriptionExists(TopicName, SubscriptionName))
             {
-                nsm.DeleteSubscription(TopicName, SubscriptionName);
+                nsm.CreateSubscription(TopicName, SubscriptionName, new SqlFilter("sys.To = 'FileSender' AND ActionName = 'PingNow'"));
             }
-            nsm.CreateSubscription(TopicName, SubscriptionName, new SqlFilter("sys.To = 'FileSender' AND ActionName = 'PingNow'"));
 
-            var client = SubscriptionClient.CreateFromConnectionString(ServiceBusConnectionString, TopicName, SubscriptionName);
+            var client = SubscriptionClient.Create(TopicName, SubscriptionName);
             client.OnMessage(ProcessPingNow);
         }
 

@@ -3,9 +3,6 @@ using System.IO;
 using System.Linq;
 using SystemWatcher.Models;
 using SystemWatcher.Models.Interfaces;
-using MigraDoc.DocumentObjectModel;
-using MigraDoc.Rendering;
-using PdfSharp.Pdf;
 
 namespace SystemWatcher.Exporters
 {

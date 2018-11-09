@@ -6,7 +6,6 @@ namespace Service.QueueManager
 {
     public class SettingsManager
     {
-        private const string ServiceBusConnectionString = "Endpoint=sb://mqmentoring.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=UlNEqYdOZZUz3SKwcoK7knvXl/3scewYuKWSSBNEvg8=";
         private const string TopicName = "settingstopic";
         private const string SubscriptionName = "SettingsChangeSubscription";
         private readonly BarcodeAnalyzer _analyzer;
@@ -15,11 +14,12 @@ namespace Service.QueueManager
         {
             _analyzer = analyzer;
 
-            var nsm = NamespaceManager.CreateFromConnectionString(ServiceBusConnectionString);
-            nsm.DeleteSubscription(TopicName, SubscriptionName);
-            nsm.CreateSubscription(TopicName, SubscriptionName, new SqlFilter("sys.To = 'FileSender' AND ActionName = 'SetTerminateWord'"));
-
-            var client = SubscriptionClient.CreateFromConnectionString(ServiceBusConnectionString, TopicName, SubscriptionName);
+            var nsm = NamespaceManager.Create();
+            if (!nsm.SubscriptionExists(TopicName, SubscriptionName))
+            {
+                nsm.CreateSubscription(TopicName, SubscriptionName, new SqlFilter("sys.To = 'FileSender' AND ActionName = 'SetTerminateWord'"));
+            }
+            var client = SubscriptionClient.Create(TopicName, SubscriptionName);
             client.OnMessage(ProcessMessage);
         }
 

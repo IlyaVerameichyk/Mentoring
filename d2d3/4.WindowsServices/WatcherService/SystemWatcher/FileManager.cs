@@ -10,7 +10,7 @@ namespace SystemWatcher
 {
     public class FileManager
     {
-        private static readonly string[] _imageExtensions = { "png", "jpg", "jpeg" };
+        private static readonly string[] ImageExtensions = { "png", "jpg", "jpeg" };
         private readonly IDictionary<string, IList<IFile>> _filesCollections;
         private readonly IFileSystemWatcher _fileSystemWatcher;
         private readonly IFilesAnalyzer _filesAnalyzer;
@@ -42,7 +42,7 @@ namespace SystemWatcher
             {
                 Status = WatcherStatus.GeneratingFiles;
                 var nameParser = new NameParser(Path.GetFileName(e.File.FullName));
-                if (!_imageExtensions.Contains(nameParser.Extension, StringComparer.InvariantCultureIgnoreCase))
+                if (!ImageExtensions.Contains(nameParser.Extension, StringComparer.InvariantCultureIgnoreCase))
                 {
                     Status = WatcherStatus.Watching;
                     return;

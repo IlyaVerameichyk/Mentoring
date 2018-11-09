@@ -11,14 +11,13 @@ namespace SystemWatcher.Exporters
     public class ServiceBusExporter : PdfExportedBase, IFileExporter
     {
         private const int BufferSize = 250 * 1024;
-        private const string ServiceBusConnectionString = "Endpoint=sb://mqmentoring.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=UlNEqYdOZZUz3SKwcoK7knvXl/3scewYuKWSSBNEvg8=";
         private const string QueueName = "filequeue";
 
         public void Export(IOrderedEnumerable<IFile> files)
         {
             using (var pdfStream = GeneratePdf(files))
             {
-                var queueClient = QueueClient.CreateFromConnectionString(ServiceBusConnectionString, QueueName);
+                var queueClient = QueueClient.Create(QueueName);
                 var messageName = new NameParser(Path.GetFileName(files.First().FullName)).Prefix;
                 var byteChunks = SplitMemoryStream(pdfStream);
 

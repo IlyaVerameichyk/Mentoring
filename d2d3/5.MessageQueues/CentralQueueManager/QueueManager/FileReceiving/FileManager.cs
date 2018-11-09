@@ -8,8 +8,8 @@ namespace QueueManager.FileReceiving
 {
     public class FileManager
     {
-        private QueueReader _queueReader;
-        private IDictionary<string, List<BrokeredMessageParser>> _receivedMessages;
+        private readonly QueueReader _queueReader;
+        private readonly IDictionary<string, List<BrokeredMessageParser>> _receivedMessages;
 
         public FileManager(QueueReader queueReader)
         {
