@@ -16,7 +16,7 @@ namespace Service
             var analyzer = new BarcodeAnalyzer();
             var settingsManager = new SettingsManager(analyzer);
 
-            _fileManager = new FileManager(new LocalSystemWatcher(new[] { "D:\\test" }), analyzer,
+            _fileManager = new FileManager(new LocalSystemWatcher("D:\\test\\bad", new[] { "D:\\test" }), analyzer,
                 new ServiceBusExporter());
             var pm = new PingManager(_fileManager);
             return true;

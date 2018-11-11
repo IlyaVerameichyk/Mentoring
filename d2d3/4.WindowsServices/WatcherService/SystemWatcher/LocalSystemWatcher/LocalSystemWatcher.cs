@@ -10,10 +10,12 @@ namespace SystemWatcher.LocalSystemWatcher
     public class LocalSystemWatcher : IFileSystemWatcher
     {
         private string[] _paths;
+        private string _badFilesDirectory;
         private IList<FileSystemWatcher> _fileSystemWatchers;
 
-        public LocalSystemWatcher(string[] paths)
+        public LocalSystemWatcher(string badFilesDirectory, string[] paths)
         {
+            _badFilesDirectory = badFilesDirectory;
             SetPaths(paths);
         }
 
@@ -39,8 +41,30 @@ namespace SystemWatcher.LocalSystemWatcher
 
         private void OnFileCreated(object sender, FileSystemEventArgs e)
         {
+            var attr = File.GetAttributes(e.FullPath);
+            // is directory
+            if ((attr & FileAttributes.Directory) == FileAttributes.Directory) { return; }
+
             var filePath = e.FullPath;
             var file = new LocalFile(new FileInfo(filePath));
+
+            try
+            {
+                using (var stream = file.ReadFile())
+                {
+                    var imgInput = System.Drawing.Image.FromStream(stream);
+                }
+            }
+            catch (Exception)
+            {
+                if (!Directory.Exists(_badFilesDirectory))
+                {
+                    Directory.CreateDirectory(_badFilesDirectory);
+                }
+                File.Move(filePath, Path.Combine(_badFilesDirectory, Path.GetFileName(filePath)));
+            }
+
+
             FileCreated?.Invoke(this, new FileEventArgs(file));
         }
 

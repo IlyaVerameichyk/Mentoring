@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Transactions;
 using SystemWatcher.Models;
 using SystemWatcher.Models.Interfaces;
 using Microsoft.ServiceBus.Messaging;
@@ -22,21 +23,26 @@ namespace SystemWatcher.Exporters
                 var byteChunks = SplitMemoryStream(pdfStream);
 
                 var index = 0;
-                foreach (var byteChunk in byteChunks)
+                var partitionKey = Guid.NewGuid().ToString();
+                using (var transaction = new TransactionScope())
                 {
-                    var message = new BrokeredMessage(byteChunk)
+                    foreach (var byteChunk in byteChunks)
                     {
-                        Label = messageName,
-                        Properties =
+                        var message = new BrokeredMessage(byteChunk)
+                        {
+                            Label = messageName,
+                            PartitionKey = partitionKey, // for transaction purposes
+                            Properties =
                             {
                                 { "Size" , byteChunks.Count },
                                 { "Position", index }
                             }
-                    };
-                    queueClient.Send(message);
-                    index++;
+                        };
+                        queueClient.Send(message);
+                        index++;
+                    }
+                    transaction.Complete();
                 }
-
                 queueClient.Close();
             }
         }
