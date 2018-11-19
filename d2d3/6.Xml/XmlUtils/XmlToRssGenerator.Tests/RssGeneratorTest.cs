@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using System.Xml;
 using Xunit;
 
 namespace XmlToRssGenerator.Tests
@@ -15,7 +16,7 @@ namespace XmlToRssGenerator.Tests
         }
 
         [Fact]
-        public void TestTransform_GenerateRss_AssertResult()
+        public void TestTransformToRss_GenerateRss_AssertResult()
         {
             string expectedString;
             using (var expected = new FileStream("Resources\\expectedRss.xml", FileMode.Open))
@@ -27,7 +28,7 @@ namespace XmlToRssGenerator.Tests
 
             using (var fs = new FileStream("Resources\\books.xml", FileMode.Open))
             {
-                using (var actual = _generator.TransformToRss(XslTransformer.RssXslPath, fs))
+                using (var actual = _generator.TransformToRss(fs))
                 {
                     var actualString = Encoding.Unicode.GetString(((MemoryStream)actual).ToArray());
 
@@ -37,25 +38,47 @@ namespace XmlToRssGenerator.Tests
         }
 
         [Fact]
-        public void TestTransform_GenerateHeml_AssertResult()
+        public void TestTransformToRss_PassNotXml_MustThrowXmlException()
         {
-            string expectedString;
-            using (var expected = new FileStream("Resources\\expectedHtml.html", FileMode.Open))
-            using (var ms = new MemoryStream())
+            using (var ms = new MemoryStream(new byte[] { 1, 2, 3, 4, 5 }))
             {
-                expected.CopyTo(ms);
-                expectedString = Encoding.UTF8.GetString(ms.ToArray());
+                Assert.Throws<XmlException>(() => _generator.TransformToRss(ms));
             }
+        }
 
+        [Fact]
+        public void TestTransformToRss_PassNull_MustThrowArgumentNullException()
+        {
+            Assert.Throws<ArgumentNullException>(() => _generator.TransformToRss(null));
+        }
+
+        [Fact]
+        public void TestTransformToHtml_GenerateHtml_AssertResult()
+        {
             using (var fs = new FileStream("Resources\\books.xml", FileMode.Open))
             {
-                using (var actual = _generator.TransformToHtml(XslTransformer.HtmlXslPath, fs))
+                using (var actual = _generator.TransformToHtml(fs))
                 {
                     var actualString = Encoding.Unicode.GetString(((MemoryStream)actual).ToArray());
 
-                    Assert.Equal(expectedString.Replace("\r\n", "").Replace(" ", ""), actualString.Replace(" ", "").Replace("\r\n", ""), StringComparer.InvariantCultureIgnoreCase);
+                    Assert.False(string.IsNullOrWhiteSpace(actualString));
                 }
             }
+        }
+
+        [Fact]
+        public void TestTransformToHtml_PassNotXml_MustThrowXmlException()
+        {
+            using (var ms = new MemoryStream(new byte[] { 1, 2, 3, 4, 5 }))
+            {
+                Assert.Throws<XmlException>(() => _generator.TransformToHtml(ms));
+            }
+        }
+
+        [Fact]
+        public void TestTransformToHtml_PassNull_MustThrowArgumentNullException()
+        {
+            Assert.Throws<ArgumentNullException>(() => _generator.TransformToHtml(null));
         }
     }
 }

@@ -78,9 +78,6 @@
     <Content Include="Resources\books.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\expectedHtml.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Resources\expectedRss.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

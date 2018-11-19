@@ -12,7 +12,7 @@ namespace XmlToRssGenerator
         public static readonly string RssXslPath = "Resources\\RssStylesheet.xslt";
         public static readonly string HtmlXslPath = "Resources\\HtmlStylesheet.xslt";
 
-        public Stream TransformToRss(string xslPath, Stream xmlStream, bool closeStreamOnFinish = false)
+        public Stream TransformToRss(Stream xmlStream, bool closeStreamOnFinish = false)
         {
             if (xmlStream == null)
             {
@@ -22,7 +22,7 @@ namespace XmlToRssGenerator
             {
                 var result = new MemoryStream();
                 var xslt = new XslTransform();
-                xslt.Load(xslPath);
+                xslt.Load(RssXslPath);
                 var xPathDocument = new XPathDocument(xmlStream);
                 var settings = new XmlWriterSettings()
                 {
@@ -41,7 +41,8 @@ namespace XmlToRssGenerator
                 }
             }
         }
-        public Stream TransformToHtml(string xslPath, Stream xmlStream, bool closeStreamOnFinish = false)
+
+        public Stream TransformToHtml(Stream xmlStream, bool closeStreamOnFinish = false)
         {
             if (xmlStream == null)
             {
@@ -51,7 +52,7 @@ namespace XmlToRssGenerator
             {
                 var result = new MemoryStream();
                 var xslt = new XslTransform();
-                xslt.Load(xslPath);
+                xslt.Load(HtmlXslPath);
                 var xPathDocument = new XPathDocument(xmlStream);
                 var settings = new XmlWriterSettings()
                 {
