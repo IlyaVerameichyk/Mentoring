@@ -25,6 +25,7 @@ namespace XmlVerify.Tests
         [Theory]
         [InlineData("books.xml", true)]
         [InlineData("incorrect.xml", false)]
+        [InlineData("nonUniqueId.xml", false)]
         public void CheckXml_CheckXmlFiles_AssertResult(string fileName, bool expectedVerifyResult)
         {
             using (var fs = new FileStream(Path.Combine("Resources", fileName), FileMode.Open))

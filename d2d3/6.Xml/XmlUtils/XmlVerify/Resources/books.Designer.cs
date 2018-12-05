@@ -505,7 +505,10 @@ namespace XmlVerify.Resources {
                 base.Columns.Add(this.columndescription);
                 this.columnregistration_date = new global::System.Data.DataColumn("registration_date", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnregistration_date);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("book-id-constraint", new global::System.Data.DataColumn[] {
+                                this.columnid}, false));
                 this.columnid.AllowDBNull = false;
+                this.columnid.Unique = true;
                 this.columnid.Namespace = "";
                 this.columnauthor.AllowDBNull = false;
                 this.columntitle.AllowDBNull = false;
