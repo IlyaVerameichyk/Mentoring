@@ -45,13 +45,14 @@ namespace GameOfLife
         
         protected override void OnClosed(EventArgs e)
         {
-            //Unsubscribe();
+            Unsubscribe();
             base.OnClosed(e);
         } 
 
         public void Unsubscribe()
         {
             adTimer.Tick -= ChangeAds;
+            MouseDown -= OnClick;
         }
 
         private void ChangeAds(object sender, EventArgs eventArgs)
@@ -83,7 +84,6 @@ namespace GameOfLife
                     imgNmb = 1;
                     break;
             }
-            
         }
     }
 }

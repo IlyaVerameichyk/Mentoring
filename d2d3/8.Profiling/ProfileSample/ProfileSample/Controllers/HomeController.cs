@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using ProfileSample.DAL;
 using ProfileSample.Models;
+using WebGrease.Css.Extensions;
 
 namespace ProfileSample.Controllers
 {
@@ -13,26 +13,38 @@ namespace ProfileSample.Controllers
     {
         public ActionResult Index()
         {
-            var context = new ProfileSampleEntities();
-
-            var sources = context.ImgSources.Take(20).Select(x => x.Id);
-            
-            var model = new List<ImageModel>();
-
-            foreach (var id in sources)
+            using (var context = new ProfileSampleEntities())
             {
-                var item = context.ImgSources.Find(id);
+                var sources = context.ImgSources.Take(20);
 
-                var obj = new ImageModel()
+                var model = sources.Select(item => new ImageModel()
                 {
                     Name = item.Name,
                     Data = item.Data
+                }).ToList();
+
+                return View(model);
+            }
+        }
+
+        private static byte[] LowerImageQuality(byte[] originBytes, int jpegQuality)
+        {
+            Image image;
+            using (var inputStream = new MemoryStream(originBytes))
+            {
+                image = Image.FromStream(inputStream);
+                var jpegEncoder = ImageCodecInfo.GetImageDecoders()
+                    .First(c => c.FormatID == ImageFormat.Jpeg.Guid);
+                var encoderParameters = new EncoderParameters(1)
+                {
+                    Param = { [0] = new EncoderParameter(Encoder.Quality, jpegQuality) }
                 };
-
-                model.Add(obj);
-            } 
-
-            return View(model);
+                using (var outputStream = new MemoryStream())
+                {
+                    image.Save(outputStream, jpegEncoder, encoderParameters);
+                    return outputStream.ToArray();
+                }
+            }
         }
 
         public ActionResult Convert()
@@ -41,24 +53,17 @@ namespace ProfileSample.Controllers
 
             using (var context = new ProfileSampleEntities())
             {
-                foreach (var file in files)
+                foreach (var contextImgSource in context.ImgSources.ToList())
                 {
-                    using (var stream = new FileStream(file, FileMode.Open))
-                    {
-                        byte[] buff = new byte[stream.Length];
+                    context.ImgSources.Remove(contextImgSource);
+                }
+                files.ForEach(file => context.ImgSources.Add(new ImgSource()
+                {
+                    Name = Path.GetFileName(file),
+                    Data = LowerImageQuality(System.IO.File.ReadAllBytes(file), 10)
+                }));
 
-                        stream.Read(buff, 0, (int) stream.Length);
-
-                        var entity = new ImgSource()
-                        {
-                            Name = Path.GetFileName(file),
-                            Data = buff,
-                        };
-
-                        context.ImgSources.Add(entity);
-                        context.SaveChanges();
-                    }
-                } 
+                context.SaveChanges();
             }
 
             return RedirectToAction("Index");
