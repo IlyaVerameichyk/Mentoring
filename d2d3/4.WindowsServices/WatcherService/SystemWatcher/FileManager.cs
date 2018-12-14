@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using SystemWatcher.Aspects;
 using SystemWatcher.Models;
 using SystemWatcher.Models.Interfaces;
 
@@ -23,8 +25,11 @@ namespace SystemWatcher
             _fileSystemWatcher = fileSystemWatcher;
             _filesAnalyzer = filesAnalyzer;
             _filesExporter = filesExporter;
-            _filesCollections = new Dictionary<string, IList<IFile>>();
+            _filesCollections = new ConcurrentDictionary<string, IList<IFile>>();
+        }
 
+        public void StartListen()
+        {
             _fileSystemWatcher.FileCreated += OnFileCreated;
             _fileSystemWatcher.StartWatching();
             Status = WatcherStatus.Watching;
@@ -36,6 +41,7 @@ namespace SystemWatcher
             _fileSystemWatcher.FileCreated -= OnFileCreated;
         }
 
+        [Trace]
         private void OnFileCreated(object sender, FileEventArgs e)
         {
             Task.Factory.StartNew(() =>

@@ -9,16 +9,23 @@ namespace Service
 {
     public class Service : ServiceControl
     {
-        private FileManager _fileManager;
+        private readonly FileManager _fileManager;
+
+        public Service(FileManager fileManager)
+        {
+            _fileManager = fileManager;
+        }
 
         public bool Start(HostControl hostControl)
         {
-            var analyzer = new BarcodeAnalyzer();
-            var settingsManager = new SettingsManager(analyzer);
+            //var analyzer = new BarcodeAnalyzer();
+            ////var settingsManager = new SettingsManager(analyzer);
 
-            _fileManager = new FileManager(new LocalSystemWatcher("D:\\test\\bad", new[] { "D:\\test" }), analyzer,
-                new ServiceBusExporter());
-            var pm = new PingManager(_fileManager);
+            //_fileManager = new FileManager(new LocalSystemWatcher("D:\\test\\bad", new[] { "D:\\test" }), analyzer,
+            //    new LocalSystemFileExporter("D:\\test\\dest"));
+            //var pm = new PingManager(_fileManager);
+            _fileManager.StartListen();
+
             return true;
         }
 

@@ -8,7 +8,7 @@ namespace SystemWatcher.Analyzer
 {
     public class BarcodeAnalyzer : IFilesAnalyzer
     {
-        private string _terminateText = "stop";
+        private string _terminateText = "asdasd";
 
         public void SetTerminateText(string text)
         {
